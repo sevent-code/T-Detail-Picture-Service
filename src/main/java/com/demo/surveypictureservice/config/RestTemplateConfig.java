@@ -6,6 +6,7 @@
 package com.demo.surveypictureservice.config;
 
 
+import com.demo.surveypictureservice.exception.CustomResponseErrorHandler;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
@@ -24,6 +25,8 @@ public class RestTemplateConfig {
     @Bean
     @LoadBalanced
     RestTemplate restTemplateWithErrorHandler() {
-        return new RestTemplateBuilder().build();
+        return new RestTemplateBuilder()
+                .errorHandler(new CustomResponseErrorHandler())
+                .build();
     }
 }
